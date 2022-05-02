@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import IconButton from '@material-ui/core/IconButton';
 import BorderColorRoundedIcon from '@material-ui/icons/BorderColorRounded';
@@ -10,11 +10,11 @@ import Checkbox from '@material-ui/core/Checkbox'
 
 function Note(props) {
     const [checked, setChecked] = React.useState(false);
-    const {note} = props;
-     
+    const { note, updateData } = props;
+
     //get notes context data
     const noteContextData = useContext(noteContext);
-    const {deleteNote} = noteContextData;
+    const { deleteNote } = noteContextData;
 
     // for copy description of note //
     const alert = () => {
@@ -22,10 +22,9 @@ function Note(props) {
         console.log(text.innerText)
         navigator.clipboard.writeText(text.innerText);
         setChecked(false);
-        
     }
 
-    const deletenotebtn = ()=>{
+    const deletenotebtn = () => {
         console.log("deleting..");
         deleteNote(note._id);
     }
@@ -40,25 +39,24 @@ function Note(props) {
                             icon={<FileCopyRoundedIcon color="primary" />}
                             checkedIcon={<CheckBoxRoundedIcon color="primary" />}
                             checked={checked}
-                            size="large"
                             onChange={(e) => setChecked(e.target.checked)}
                             onClick={alert}
                         />
                     </span>
                 </div>
-                <p className="card-text text-dark" id="text">{note.description} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex sint commodi expedita perspiciatis esse hic temporibus nam nostrum natus vitae?</p>
-                <p>
-                    <div className="text-center">
+                <p className="card-text text-dark" id="text">{note.description}</p>
+                <div className="text-center">
+                    <span onClick={() => { updateData(note) }}>
                         <IconButton aria-label="delete">
                             <BorderColorRoundedIcon color="primary" />
                         </IconButton>
-                        <span onClick={deletenotebtn}>
-                            <IconButton aria-label="delete">
-                                <DeleteRoundedIcon color="secondary" />
-                            </IconButton>
-                        </span>
-                    </div>
-                </p>
+                    </span>
+                    <span onClick={deletenotebtn}>
+                        <IconButton aria-label="delete">
+                            <DeleteRoundedIcon color="secondary" />
+                        </IconButton>
+                    </span>
+                </div>
             </div>
         </div>
     )

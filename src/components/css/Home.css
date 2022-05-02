@@ -194,8 +194,15 @@
 }
 
 div#Home {
-    background: url('https://ak4.picdn.net/shutterstock/videos/5320994/thumb/1.jpg') no-repeat;
     background-size: cover;
+}
+
+div#Home {
+    width: 100%;
+    height: 100%;
+    /* background: #fff url('/src/components/image/background.jpg') center center no-repeat; */
+    background-attachment: fixed;
+    background-size: 100% auto;
 }
 
 .penguin * {

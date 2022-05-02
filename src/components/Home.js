@@ -4,7 +4,7 @@ import './css/Home.css'
 function Home() {
     return (
         <div id="Home">
-            <h2 style={{ color: "white" }}>Welcome page</h2>
+            <h2>Welcome page</h2>
             <div className="penguin">
                 <div className="penguin-bottom">
                     <div className="right-hand"></div>

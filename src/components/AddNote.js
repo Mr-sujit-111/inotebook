@@ -1,19 +1,33 @@
+import noteContext from '../context/noteContext';
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, IconButton, List } from '@material-ui/core';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import noteContext from '../context/noteContext';
+import ListData from './List';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function AddNote() {
+    const context = useContext(noteContext);
+    const { addNewNote } = context;
+
+    const alert = (message) => toast.success(message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
     const style = {
         position: "absolute",
         marginLeft: "43%",
         marginTop: "1%"
     };
 
-    const context = useContext(noteContext);
-    const { addNewNote } = context;
-
-    const [note, setNote] = useState({ title: "", description: "", tag: "", submit: false });
+    const [note, setNote] = useState({ title: "", description: "", tag: "", image: "" });
+    // const [image, setImage] = useState('')
 
     //change the value of title and description //
     const onChangeInput = (e) => {
@@ -24,48 +38,51 @@ function AddNote() {
     const addNote = (e) => {
         e.preventDefault();
         addNewNote(note.title, note.description, note.tag);
-        setNote({ description: "", title: "", submit: true });
-        setTimeout(() => {
-            setNote({ submit: false })
-        }, 8000);
+        setNote({ description: "", title: "", tag: '' });
+        alert("note added successfully!");
     }
+ 
 
     return (
         <div className='container'>
-            {note.submit ? <div className="alert alert-info alert-dismissible fade show" role="alert">
+            {/* {note.submit ? <div className="alert alert-info alert-dismissible fade show" role="alert">
                 <strong>Note Added</strong> Note is added successfully !
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div> : ""}
+            </div> : ""} */}
             <Link to="/Operations">
                 <IconButton style={style}>
                     <KeyboardBackspaceIcon />
                 </IconButton>
             </Link>
-            <form action="/" method="get">
+            <form method="get" onSubmit={addNote} >
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">title:</label>
-                    <input type="text" name="title" id="title" className="form-control" placeholder="Enter your title" aria-describedby="helpId" value={note.title} onChange={onChangeInput} required />
+                    <input type="text" name="title" id="title" className="form-control" placeholder="Enter your title" aria-describedby="helpId" value={note.title} onChange={onChangeInput} />
                 </div>
-                <select className="form-select" aria-label="Default select example">
-                    <option selected>Please select tag</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+                <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">tag:</label>
+                    <input type="text" name="tag" id="tag" className="form-control" placeholder="Enter your tag" aria-describedby="helpId" value={note.tag} onChange={onChangeInput} required />
+                </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">description:</label>
                     <input type="text" name="description" id="description" className="form-control" placeholder="Enter your description" value={note.description} aria-describedby="helpId" onChange={onChangeInput} required />
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={addNote}>Add Note</button>
+                <button type="submit" className="btn btn-primary">Add Note</button>
             </form>
-            <div>
-                <Link className="dedcription-btn operation-btn" to="/List">
-                    <span className="name-descripeion">Show Note</span>
-                    <div className="btn-icon heart">
-                        <i className="fas fa-heartbeat"></i>
-                    </div>
-                </Link>
+            <div className="list">
+                <ListData />
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     )
 }

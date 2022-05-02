@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 // import Button from '@material-ui/core/Button';
 
 export default function () {
+    const AddNote = ()=>{
+        console.log('addingggg...')
+    }
     return (
         <div>
             <div className="container">
@@ -11,7 +14,7 @@ export default function () {
                     <div className="row">
                         <div className="col-sm-12 col-md-6">
                             <Link className="dedcription-btn operation-btn" to="/AddNote">
-                                <span className="name-descripeion"> Add Note</span>
+                                <span className="name-descripeion" onClick={AddNote}> Add Note</span>
                                 <div className="btn-icon">
                                     <i className="far fa-lightbulb"></i>
                                 </div>

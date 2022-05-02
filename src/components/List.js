@@ -11,7 +11,6 @@ function List() {
         marginLeft:"43%",
         marginTop: "1%"
     };
-
     return (
         <div>
              <Link to="/Operations">
@@ -21,7 +20,7 @@ function List() {
               </Link>
             <div className='container' >
                 <div className="text-start" >
-                    <h2>All Notes: </h2>
+                    <h2 style={{ color : 'white'}}>All Notes: </h2>
                     <AllNotes />
                 </div>
             </div>
